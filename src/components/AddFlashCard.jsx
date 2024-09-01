@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFlashcard } from '../store/flashcardSlice';
+import { addFlashcardAsync } from '../store/flashcardSlice';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,7 +15,7 @@ const AddFlashCard = () => {
 
   const handleAddCard = () => {
     if (newQuestion && newAnswer && selectedCategory) {
-      dispatch(addFlashcard({ 
+      dispatch(addFlashcardAsync({ 
         question: newQuestion, 
         answer: newAnswer, 
         categoryId: parseInt(selectedCategory)
