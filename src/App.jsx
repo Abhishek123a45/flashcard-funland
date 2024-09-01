@@ -7,6 +7,7 @@ import { store } from './store/store';
 import FlashCardView from './components/FlashCardView';
 import AddFlashCard from './components/AddFlashCard';
 import AllFlashCards from './components/AllFlashCards';
+import CategoryManager from './components/CategoryManager';
 import Navigation from './components/Navigation';
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
             <Route path="/" element={<FlashCardView />} />
             <Route path="/add" element={<AddFlashCard />} />
             <Route path="/all" element={<AllFlashCards />} />
+            <Route path="/categories" element={<CategoryManager />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

@@ -17,6 +17,9 @@ const Navigation = () => {
           <Button asChild variant="ghost">
             <Link to="/all">All Cards</Link>
           </Button>
+          <Button asChild variant="ghost">
+            <Link to="/categories">Manage Categories</Link>
+          </Button>
         </div>
       </div>
     </nav>

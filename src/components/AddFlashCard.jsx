@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addFlashcard } from '../store/flashcardSlice';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PlusIcon } from "lucide-react";
 
 const AddFlashCard = () => {
   const [newQuestion, setNewQuestion] = useState('');
   const [newAnswer, setNewAnswer] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const dispatch = useDispatch();
+  const categories = useSelector(state => state.flashcards.categories);
 
   const handleAddCard = () => {
-    if (newQuestion && newAnswer) {
-      dispatch(addFlashcard({ question: newQuestion, answer: newAnswer }));
+    if (newQuestion && newAnswer && selectedCategory) {
+      dispatch(addFlashcard({ 
+        question: newQuestion, 
+        answer: newAnswer, 
+        categoryId: parseInt(selectedCategory)
+      }));
       setNewQuestion('');
       setNewAnswer('');
+      setSelectedCategory('');
     }
   };
 
@@ -34,6 +42,18 @@ const AddFlashCard = () => {
             value={newAnswer}
             onChange={(e) => setNewAnswer(e.target.value)}
           />
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a category" />
+            </SelectTrigger>
+            <SelectContent>
+              {categories.map(category => (
+                <SelectItem key={category.id} value={category.id.toString()}>
+                  {category.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <Button onClick={handleAddCard}>
           <PlusIcon className="h-4 w-4 mr-2" />
