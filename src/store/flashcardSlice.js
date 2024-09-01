@@ -1,47 +1,76 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import * as db from '../utils/db';
 
 const initialState = {
-  categories: [
-    { id: 1, name: 'Default' },
-  ],
-  flashcards: [
-    { id: 1, question: "What is React?", answer: "A JavaScript library for building user interfaces", categoryId: 1 },
-    { id: 2, question: "What is JSX?", answer: "A syntax extension for JavaScript used with React", categoryId: 1 },
-  ],
+  categories: [],
+  flashcards: [],
   currentCategory: null,
+  status: 'idle',
+  error: null,
 };
+
+export const fetchCategories = createAsyncThunk('flashcards/fetchCategories', async () => {
+  return await db.getCategories();
+});
+
+export const fetchFlashcards = createAsyncThunk('flashcards/fetchFlashcards', async () => {
+  return await db.getFlashcards();
+});
+
+export const addCategoryAsync = createAsyncThunk('flashcards/addCategory', async (category) => {
+  const id = await db.addCategory(category);
+  return { id, name: category };
+});
+
+export const addFlashcardAsync = createAsyncThunk('flashcards/addFlashcard', async (flashcard) => {
+  const id = await db.addFlashcard(flashcard);
+  return { id, ...flashcard };
+});
+
+export const updateFlashcardAsync = createAsyncThunk('flashcards/updateFlashcard', async (flashcard) => {
+  await db.updateFlashcard(flashcard);
+  return flashcard;
+});
+
+export const deleteFlashcardAsync = createAsyncThunk('flashcards/deleteFlashcard', async (id) => {
+  await db.deleteFlashcard(id);
+  return id;
+});
 
 export const flashcardSlice = createSlice({
   name: 'flashcards',
   initialState,
   reducers: {
-    addCategory: (state, action) => {
-      state.categories.push({
-        id: Date.now(),
-        name: action.payload,
-      });
-    },
-    addFlashcard: (state, action) => {
-      state.flashcards.push({
-        id: Date.now(),
-        ...action.payload,
-      });
-    },
-    updateFlashcard: (state, action) => {
-      const index = state.flashcards.findIndex(card => card.id === action.payload.id);
-      if (index !== -1) {
-        state.flashcards[index] = action.payload;
-      }
-    },
-    deleteFlashcard: (state, action) => {
-      state.flashcards = state.flashcards.filter(card => card.id !== action.payload);
-    },
     setCurrentCategory: (state, action) => {
       state.currentCategory = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.categories = action.payload;
+      })
+      .addCase(fetchFlashcards.fulfilled, (state, action) => {
+        state.flashcards = action.payload;
+      })
+      .addCase(addCategoryAsync.fulfilled, (state, action) => {
+        state.categories.push(action.payload);
+      })
+      .addCase(addFlashcardAsync.fulfilled, (state, action) => {
+        state.flashcards.push(action.payload);
+      })
+      .addCase(updateFlashcardAsync.fulfilled, (state, action) => {
+        const index = state.flashcards.findIndex(card => card.id === action.payload.id);
+        if (index !== -1) {
+          state.flashcards[index] = action.payload;
+        }
+      })
+      .addCase(deleteFlashcardAsync.fulfilled, (state, action) => {
+        state.flashcards = state.flashcards.filter(card => card.id !== action.payload);
+      });
+  },
 });
 
-export const { addCategory, addFlashcard, updateFlashcard, deleteFlashcard, setCurrentCategory } = flashcardSlice.actions;
+export const { setCurrentCategory } = flashcardSlice.actions;
 
 export default flashcardSlice.reducer;
