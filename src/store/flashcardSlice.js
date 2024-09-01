@@ -8,6 +8,7 @@ const initialState = {
     { id: 1, question: "What is React?", answer: "A JavaScript library for building user interfaces", categoryId: 1 },
     { id: 2, question: "What is JSX?", answer: "A syntax extension for JavaScript used with React", categoryId: 1 },
   ],
+  currentCategory: null,
 };
 
 export const flashcardSlice = createSlice({
@@ -35,9 +36,12 @@ export const flashcardSlice = createSlice({
     deleteFlashcard: (state, action) => {
       state.flashcards = state.flashcards.filter(card => card.id !== action.payload);
     },
+    setCurrentCategory: (state, action) => {
+      state.currentCategory = action.payload;
+    },
   },
 });
 
-export const { addCategory, addFlashcard, updateFlashcard, deleteFlashcard } = flashcardSlice.actions;
+export const { addCategory, addFlashcard, updateFlashcard, deleteFlashcard, setCurrentCategory } = flashcardSlice.actions;
 
 export default flashcardSlice.reducer;
