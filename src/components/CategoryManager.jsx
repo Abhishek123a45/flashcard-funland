@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCategory } from '../store/flashcardSlice';
+import { addCategoryAsync } from '../store/flashcardSlice';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -12,7 +12,7 @@ const CategoryManager = () => {
 
   const handleAddCategory = () => {
     if (newCategory.trim()) {
-      dispatch(addCategory(newCategory.trim()));
+      dispatch(addCategoryAsync(newCategory.trim()));
       setNewCategory('');
     }
   };
