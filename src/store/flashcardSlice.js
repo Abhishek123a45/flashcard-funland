@@ -73,6 +73,4 @@ export const flashcardSlice = createSlice({
 
 export const { setCurrentCategory } = flashcardSlice.actions;
 
-export { addCategoryAsync, updateFlashcardAsync, deleteFlashcardAsync };
-
 export default flashcardSlice.reducer;
