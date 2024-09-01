@@ -1,9 +1,9 @@
-import FlashCardApp from '../components/FlashCardApp';
+import FlashCardView from '../components/FlashCardView';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gray-100">
-      <FlashCardApp />
+      <FlashCardView />
     </div>
   );
 };
