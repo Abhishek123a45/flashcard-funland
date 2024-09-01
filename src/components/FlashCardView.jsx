@@ -38,7 +38,7 @@ const FlashCardView = () => {
   };
 
   const handleCategoryChange = (categoryId) => {
-    dispatch(setCurrentCategory(parseInt(categoryId)));
+    dispatch(setCurrentCategory(categoryId === 'all' ? null : parseInt(categoryId)));
   };
 
   return (
@@ -51,7 +51,7 @@ const FlashCardView = () => {
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Categories</SelectItem>
+            <SelectItem value="all">All Categories</SelectItem>
             {categories.map(category => (
               <SelectItem key={category.id} value={category.id.toString()}>
                 {category.name}
