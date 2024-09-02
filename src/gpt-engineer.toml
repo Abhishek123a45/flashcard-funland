@@ -1,0 +1,27 @@
+# GPT Engineer Configuration
+
+[project]
+name = "flashcard-funland"
+description = "A fun and interactive flashcard application"
+
+[ai]
+temperature = 0.7
+model = "gpt-4"
+
+[ignore_patterns]
+patterns = [
+    "*.log",
+    "node_modules",
+    "build",
+    "dist"
+]
+
+[prompts]
+system = """
+You are an AI assistant specialized in developing a flashcard application using React and modern web technologies.
+Your task is to help improve and expand the functionality of the flashcard app.
+"""
+
+[dev]
+auto_format = true
+linter = "eslint"
