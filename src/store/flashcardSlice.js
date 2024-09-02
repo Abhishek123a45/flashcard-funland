@@ -9,30 +9,30 @@ const initialState = {
   error: null,
 };
 
-export const fetchCategories = createAsyncThunk('flashcards/fetchCategories', async () => {
+const fetchCategories = createAsyncThunk('flashcards/fetchCategories', async () => {
   return await db.getCategories();
 });
 
-export const fetchFlashcards = createAsyncThunk('flashcards/fetchFlashcards', async () => {
+const fetchFlashcards = createAsyncThunk('flashcards/fetchFlashcards', async () => {
   return await db.getFlashcards();
 });
 
-export const addCategoryAsync = createAsyncThunk('flashcards/addCategory', async (category) => {
+const addCategoryAsync = createAsyncThunk('flashcards/addCategory', async (category) => {
   const id = await db.addCategory(category);
   return { id, name: category };
 });
 
-export const addFlashcardAsync = createAsyncThunk('flashcards/addFlashcard', async (flashcard) => {
+const addFlashcardAsync = createAsyncThunk('flashcards/addFlashcard', async (flashcard) => {
   const id = await db.addFlashcard(flashcard);
   return { id, ...flashcard };
 });
 
-export const updateFlashcardAsync = createAsyncThunk('flashcards/updateFlashcard', async (flashcard) => {
+ const updateFlashcardAsync = createAsyncThunk('flashcards/updateFlashcard', async (flashcard) => {
   await db.updateFlashcard(flashcard);
   return flashcard;
 });
 
-export const deleteFlashcardAsync = createAsyncThunk('flashcards/deleteFlashcard', async (id) => {
+const deleteFlashcardAsync = createAsyncThunk('flashcards/deleteFlashcard', async (id) => {
   await db.deleteFlashcard(id);
   return id;
 });

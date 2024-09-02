@@ -9,16 +9,16 @@ const Navigation = () => {
         <Link to="/" className="text-white text-xl font-bold">Flash Card App</Link>
         <div className="space-x-4">
           <Button asChild variant="ghost">
-            <Link to="/">View Cards</Link>
+            <Link to="/" className="text-white">View Cards</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link to="/add">Add Card</Link>
+            <Link to="/add" className="text-white">Add Card</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link to="/all">All Cards</Link>
+            <Link to="/all" className="text-white">All Cards</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link to="/categories">Manage Categories</Link>
+            <Link to="/categories" className="text-white">Manage Categories</Link>
           </Button>
         </div>
       </div>

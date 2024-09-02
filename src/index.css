@@ -74,3 +74,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+.answerText{
+  background-image: url('/giphy.webp');
+  background-size: cover;
+  color: transparent;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  text-transform: uppercase;
+  margin: 10px 0;
+}

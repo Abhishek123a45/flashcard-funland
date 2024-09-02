@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCategoryAsync } from '../store/flashcardSlice';
+import { addCategoryAsync, fetchFlashcards, fetchCategories } from '../store/flashcardSlice';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+
 
 const CategoryManager = () => {
   const [newCategory, setNewCategory] = useState('');
@@ -12,10 +13,15 @@ const CategoryManager = () => {
 
   const handleAddCategory = () => {
     if (newCategory.trim()) {
+      console.log(newCategory)
       dispatch(addCategoryAsync(newCategory.trim()));
       setNewCategory('');
+      dispatch(fetchCategories());
+      dispatch(fetchFlashcards());
     }
   };
+
+  console.log(categories)
 
   return (
     <div className="container mx-auto p-4">
